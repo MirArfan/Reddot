@@ -28,8 +28,8 @@ const Navbar = () => {
       {/* --- Top Info Bar --- */}
       <div className="hidden md:flex bg-slate-50 border-b py-2 px-8 justify-between items-center text-[12px] font-medium text-slate-600">
         <div className="flex gap-6">
-          <span className="flex items-center gap-1"><Phone size={14} className="text-red-600" /> +65 6756 0073</span>
-          <span className="flex items-center gap-1"><Mail size={14} className="text-red-600" /> info@reddot.com</span>
+          <span className="flex items-center gap-1"><Phone size={14} className="text-red-600" /> +6591203662</span>
+          <span className="flex items-center gap-1"><Mail size={14} className="text-red-600" /> reddot2u@gmail.com</span>
         </div>
         <div className="italic text-red-600">"One step all problems solution partners"</div>
       </div>

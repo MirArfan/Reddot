@@ -1,5 +1,4 @@
 import About from "../components/About";
-import ContactInfo from "../components/ContactInfo";
 import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import Services from "../components/Services";
@@ -24,8 +23,7 @@ const Home = () => {
       {/* 5. Team/Directors Section */}
       <Team />
 
-      {/* 6. Contact Info Section (Address from image) */}
-      <ContactInfo />
+
     </main>
   );
 };

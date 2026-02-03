@@ -4,13 +4,18 @@ import TunnelIntro from '../components/TunnelIntro';
 import TunnelScope from '../components/TunnelScope';
 import TunnelClients from '../components/TunnelClients';
 import ContactInfo from '../components/ContactInfo';
+import TunnellingPage from '../components/Tunnel';
+import New from '../components/New';
+
 
  
 const Tunnelling = () => {
   return (
     <main className="font-sans text-slate-800 bg-white">
       {/* 1. Top Images Banner */}
+      <TunnellingPage/>
       <TunnelHero />
+      <New/>
  
       {/* 2. Intro & Current Project (Circle Line 6) */}
       <TunnelIntro />
@@ -23,6 +28,7 @@ const Tunnelling = () => {
  
       {/* 5. Footer Contact Info */}
       <ContactInfo />
+      
     </main>
   );
 };
