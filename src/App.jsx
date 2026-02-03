@@ -7,7 +7,7 @@ import Tunnelling from './pages/Tunnelling'
 
 const App = () => {
   return (
-    <div className='mx-4 '>
+    <div className=''>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />

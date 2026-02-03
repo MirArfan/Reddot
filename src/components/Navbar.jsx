@@ -1,154 +1,129 @@
 import React, { useState } from "react";
-import { Menu, X, Phone, Mail, ShieldCheck } from "lucide-react";
+import { Menu, X, ChevronDown, Phone, Mail } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState(null);
 
-  // SPA page routes
+
   const navLinks = [
     { name: "Home", to: "/" },
     { name: "Tunnelling", to: "/tunnelling" },
-  ];
-
-  // Same page section scroll
-  const sectionLinks = [
-    { name: "Projects", href: "#projects" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#contact" },
+    {
+      name: "Civil & Construction",
+      to: "/civil",
+      subServices: ["Renovation", "Hacking", "Demolish", "Defect Curing", "Hoarding", "Lancing", "Cutting Partition"]
+    },
+    { name: "Manufacturing & Pharma", to: "/manufacturing" },
+    { name: "Railway", to: "/railway" },
+    { name: "Oil & Gas", to: "/oil-gas" },
+    { name: "Marine & Offshore", to: "/marine" },
+    { name: "Aerospace", to: "/aerospace" },
   ];
 
   return (
-    <header className="w-full font-sans">
-      {/* ---------------- Top Bar ---------------- */}
-      <div className="bg-slate-900 text-slate-300 text-xs md:text-sm py-2 px-4 hidden md:block border-b border-slate-800">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex space-x-6">
-            <a
-              href="mailto:hockhengseng@gmail.com"
-              className="flex items-center gap-2 hover:text-yellow-500 transition"
-            >
-              <Mail size={14} />
-              <span>hockhengseng@gmail.com</span>
-            </a>
-
-            <a
-              href="tel:67560073"
-              className="flex items-center gap-2 hover:text-yellow-500 transition"
-            >
-              <Phone size={14} />
-              <span>6756 0073</span>
-            </a>
-          </div>
-
-          <div className="flex items-center gap-2 text-yellow-500 font-medium">
-            <ShieldCheck size={16} />
-            <span>BizSAFE STAR & ISO Certified</span>
-          </div>
+    <header className="w-full bg-white shadow-sm sticky top-0 z-50 font-sans">
+      {/* --- Top Info Bar --- */}
+      <div className="hidden md:flex bg-slate-50 border-b py-2 px-8 justify-between items-center text-[12px] font-medium text-slate-600">
+        <div className="flex gap-6">
+          <span className="flex items-center gap-1"><Phone size={14} className="text-red-600" /> +65 6756 0073</span>
+          <span className="flex items-center gap-1"><Mail size={14} className="text-red-600" /> info@reddot.com</span>
         </div>
+        <div className="italic text-red-600">"One step all problems solution partners"</div>
       </div>
 
-      {/* ---------------- Main Navbar ---------------- */}
-      <nav className="sticky top-0 z-50 bg-white shadow-md">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          {/* Logo (SPA) */}
-          <Link to="/" className="flex flex-col leading-none group">
-            <span className="text-2xl font-extrabold text-slate-900 group-hover:text-slate-700 transition">
-              HOCK HENG SENG
-            </span>
-            <span className="text-[10px] md:text-xs text-yellow-600 font-bold tracking-[0.2em] uppercase">
-              Contractor Pte Ltd
-            </span>
-          </Link>
+      {/* --- Main Navigation --- */}
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-20">
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
+          <nav className="px-4 sm:px-6 md:px-8 lg:px-12">
+            {/* Logo Section */}
+            <Link to="/" className="flex items-center gap-3">
+              <img
+                src={logo}
+                alt="Reddot Engineering & Construction"
+                className="h-10 sm:h-16 md:h-16 lg:h-20 w-auto object-contain"
+              />
+            </Link>
+          </nav>
+
+
+
+
+          {/* Desktop Links (Clean & Modern) */}
+          <nav className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => (
-              <NavLink
+              <div
                 key={link.name}
-                to={link.to}
-                className={({ isActive }) =>
-                  `text-sm font-semibold uppercase tracking-wide transition ${
-                    isActive
-                      ? "text-yellow-600"
-                      : "text-slate-600 hover:text-yellow-600"
-                  }`
-                }
+                className="relative group"
+                onMouseEnter={() => link.subServices && setActiveMenu(link.name)}
+                onMouseLeave={() => setActiveMenu(null)}
               >
-                {link.name}
-              </NavLink>
-            ))}
+                <NavLink
+                  to={link.to}
+                  className={({ isActive }) => `
+                    px-3 py-2 text-[13px] font-bold uppercase tracking-tight transition-all
+                    flex items-center gap-1 rounded-md
+                    ${isActive ? "text-red-600" : "text-slate-700 hover:text-red-600 hover:bg-slate-50"}
+                  `}
+                >
+                  {link.name}
+                  {link.subServices && <ChevronDown size={14} />}
+                </NavLink>
 
-            {sectionLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-semibold text-slate-600 hover:text-yellow-600 transition uppercase tracking-wide"
-              >
-                {link.name}
-              </a>
+                {/* Mega Dropdown for Civil & Construction */}
+                {link.subServices && activeMenu === link.name && (
+                  <div className="absolute top-full left-0 w-64 bg-white shadow-xl border-t-2 border-red-600 rounded-b-md p-4 animate-in fade-in slide-in-from-top-2">
+                    <ul className="space-y-2">
+                      {link.subServices.map((sub) => (
+                        <li key={sub}>
+                          <a href="#" className="text-[13px] text-slate-600 hover:text-red-600 hover:pl-2 transition-all block py-1 border-b border-slate-50">
+                            {sub}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
             ))}
+          </nav>
+
+          {/* Contact Us Button (Image 1 এর মতো হলুদ রঙ) */}
+          <div className="hidden lg:block">
+            <Link to="/contact" className="bg-[#FFB800] hover:bg-yellow-500 text-slate-900 text-xs font-black py-3 px-6 rounded uppercase tracking-widest transition-all shadow-md">
+              Contact Us
+            </Link>
           </div>
 
-          {/* Desktop Button */}
-          <div className="hidden md:block">
-            <a
-              href="#contact"
-              className="bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold py-2 px-5 rounded transition shadow-sm"
-            >
-              Get Quote
-            </a>
-          </div>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden text-slate-900"
-            onClick={() => setIsOpen(!isOpen)}
-          >
+          {/* Mobile Menu Button */}
+          <button className="lg:hidden text-slate-800" onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
+      </div>
 
-        {/* ---------------- Mobile Menu ---------------- */}
-        <div
-          className={`md:hidden bg-slate-50 border-t overflow-hidden transition-all duration-300 ${
-            isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="flex flex-col p-4 space-y-4">
-            {navLinks.map((link) => (
+      {/* --- Mobile Menu --- */}
+      {isOpen && (
+        <div className="lg:hidden bg-white border-t p-4 h-screen overflow-y-auto">
+          {navLinks.map((link) => (
+            <div key={link.name} className="border-b border-slate-100 last:border-0">
               <NavLink
-                key={link.name}
                 to={link.to}
+                className="block py-4 text-sm font-bold text-slate-800 uppercase"
                 onClick={() => setIsOpen(false)}
-                className="block text-slate-700 font-medium hover:text-yellow-600 hover:bg-slate-100 p-2 rounded transition"
               >
                 {link.name}
               </NavLink>
-            ))}
-
-            {sectionLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-slate-700 font-medium hover:text-yellow-600 hover:bg-slate-100 p-2 rounded transition"
-              >
-                {link.name}
-              </a>
-            ))}
-
-            <div className="pt-4 border-t border-slate-200 text-sm text-slate-500 space-y-2">
-              <p className="flex items-center gap-2">
-                <Phone size={14} /> 6756 0073
-              </p>
-              <p className="flex items-center gap-2">
-                <Mail size={14} /> hockhengseng@gmail.com
-              </p>
             </div>
+          ))}
+          <div className="mt-6">
+            <Link to="/contact" className="block w-full bg-[#FFB800] text-center py-4 font-bold rounded">CONTACT US</Link>
           </div>
         </div>
-      </nav>
+      )}
     </header>
   );
 };
